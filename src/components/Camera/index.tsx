@@ -1,5 +1,4 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import React from 'react'
 
 export default function Camera() {
     const { camera } = useThree();

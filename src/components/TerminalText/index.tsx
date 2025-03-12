@@ -9,7 +9,6 @@ interface TerminalTextProps {
 
 const TerminalText: FC<TerminalTextProps> = ({
     fullText,
-    typingSpeed = 50,
     position = [0, 0, 0]
 }) => {
     return (

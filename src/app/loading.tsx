@@ -1,5 +1,3 @@
-// app/loading.tsx
-import React from 'react';
 // import Loader3D from '../components/Loader3D'; // ваш компонент с 3D-анимацией
 
 export default function Loading() {

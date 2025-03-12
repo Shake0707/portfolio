@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Camera from "@/components/Camera";
 import ParticlesBackground from "@/components/ParticlesBackground";
-import TerminalText from "@/components/TerminalText";
+// import TerminalText from "@/components/TerminalText";
 
 export default function Home() {
   return (
@@ -31,7 +31,6 @@ export default function Home() {
       <Navigation position={[0.7, -0.7, -0.7]} scale={1} />
       {/* <TerminalText
         fullText="Hello world"
-        position={[0.7, 0.7, 0.6]}
         typingSpeed={100}
       /> */}
       {/* <gridHelper args={[30, 30]} /> */}
