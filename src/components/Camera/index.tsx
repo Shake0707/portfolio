@@ -4,7 +4,7 @@ export default function Camera() {
     const { camera } = useThree();
 
     useFrame(() => {
-        camera.lookAt(0, 0.2, 0);
+        camera.lookAt(0, 6, 4);
     });
 
     return <></>

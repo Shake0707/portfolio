@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Orbitron, Rajdhani, 
-  // Press_Start_2P
- } from "next/font/google";
+import {
+  Orbitron, Rajdhani,
+  Press_Start_2P
+} from "next/font/google";
 import "./globals.css";
 
 
 //? for terminal text
-// const pressStart2P = Press_Start_2P({
-//   subsets: ["latin"],
-//   weight: "400",
-// })
+const pressStart2P = Press_Start_2P({
+  subsets: ["latin"],
+  weight: "400",
+})
 
 //? for futuristic text
 const orbitron = Orbitron({
@@ -35,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${rajdhani.className} ${orbitron.className}`}>
+      <body className={`${rajdhani.className} ${orbitron.className} ${pressStart2P.className}`}>
         {children}
       </body>
     </html>

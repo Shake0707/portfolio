@@ -5,7 +5,11 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Camera from "@/components/Camera";
 import ParticlesBackground from "@/components/ParticlesBackground";
-// import TerminalText from "@/components/TerminalText";
+import { TV } from "@/constants/tv";
+import { TvText } from "@/constants/tvText";
+import LockedTypingTerminal from "@/components/Navigation/TEXT/LockedTypingTerminal";
+import { useEffect } from "react";
+import { Vector3 } from "three";
 
 export default function Home() {
   return (
@@ -19,22 +23,30 @@ export default function Home() {
         near: 0.1,
         far: 1000,
         zoom: 1,
-        position: [1.5, 0.2, 0],
+        position: [12, 15, 10],
       }}
     >
       <Camera />
-      <ambientLight intensity={1.5} />
-      <OrbitControls />
+      <ambientLight intensity={2} />
+      <OrbitControls
+        maxDistance={50}
+        minDistance={20}
+        rotateSpeed={0.5}
+        zoomSpeed={0.6}
+      />
       {/* PARTICLES */}
-      <ParticlesBackground />
+      < ParticlesBackground />
       {/* PARTICLES */}
-      <Navigation position={[0.7, -0.7, -0.7]} scale={1} />
-      {/* <TerminalText
-        fullText="Hello world"
-        typingSpeed={100}
-      /> */}
+      < Navigation
+        position={[TV.pos.x, TV.pos.y, TV.pos.z]}
+        scale={TV.scale}
+      />
+      <group
+        position={[TvText.pos.x, TvText.pos.y, TvText.pos.z]}
+      >
+        <LockedTypingTerminal />
+      </group>
       {/* <gridHelper args={[30, 30]} /> */}
-      {/* <SpotLightWithHelper /> */}
       {/* <axesHelper args={[100]} /> */}
     </Canvas>
   );
