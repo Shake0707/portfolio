@@ -128,7 +128,7 @@ const QuestionTerminal: FC<QuestionTerminalProps> = ({
     // 3. Формируем общий текст для экрана
     // ------------------------------
 
-    let allSystemText = [...systemLines];
+    const allSystemText = [...systemLines];
 
     const stillPrintingSystemLine = sysLineIndex < initialSystemLines.length && sysTypedText;
     if (stillPrintingSystemLine) {
