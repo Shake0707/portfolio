@@ -8,8 +8,8 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 import { TV } from "@/constants/tv";
 import { TvText } from "@/constants/tvText";
 import LockedTypingTerminal from "@/components/Navigation/TEXT/LockedTypingTerminal";
-import { useEffect } from "react";
-import { Vector3 } from "three";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 export default function Home() {
   return (
@@ -37,15 +37,18 @@ export default function Home() {
       {/* PARTICLES */}
       < ParticlesBackground />
       {/* PARTICLES */}
-      < Navigation
-        position={[TV.pos.x, TV.pos.y, TV.pos.z]}
-        scale={TV.scale}
-      />
-      <group
-        position={[TvText.pos.x, TvText.pos.y, TvText.pos.z]}
-      >
-        <LockedTypingTerminal />
-      </group>
+      <Provider store={store}>
+
+        < Navigation
+          position={[TV.pos.x, TV.pos.y, TV.pos.z]}
+          scale={TV.scale}
+        />
+        <group
+          position={[TvText.pos.x, TvText.pos.y, TvText.pos.z]}
+        >
+          <LockedTypingTerminal />
+        </group>
+      </Provider>
       {/* <gridHelper args={[30, 30]} /> */}
       {/* <axesHelper args={[100]} /> */}
     </Canvas>

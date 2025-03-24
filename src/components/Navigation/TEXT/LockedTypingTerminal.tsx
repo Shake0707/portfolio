@@ -1,5 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import CurvedScreen from './CurvedScreen';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import {
+    setIsSysTyping,
+    setIsUserTyping,
+    setSysLine,
+    setSysLineIndex,
+    setSysTypedText,
+    setUserInput,
+    toggleBlink
+} from '@/store/sileces/terminalSys';
+// import { useRouter } from 'next/navigation';
 
 const initialSystemLines = [
     "Что вы хотите сделать?",
@@ -9,35 +20,42 @@ const initialSystemLines = [
     ""
 ];
 
+// Variansts
+const sysOptions = {
+    vars: [1, 2, 3],
+    1: "about",
+    2: "contacts",
+    3: "skills"
+};
+
 interface QuestionTerminalProps {
-    typingSpeed?: number;  
+    typingSpeed?: number;
     blinkDelay?: number;
     blinkInterval?: number;
 }
 
-const QuestionTerminal: React.FC<QuestionTerminalProps> = ({
+const QuestionTerminal: FC<QuestionTerminalProps> = ({
     typingSpeed = 50,
     blinkDelay = 1000,
     blinkInterval = 500,
 }) => {
-    // --- Система ---
-    const [systemLines, setSystemLines] = useState<string[]>([]);
-    const [sysLineIndex, setSysLineIndex] = useState(0);
-    const [sysTypedText, setSysTypedText] = useState('');
-    const [printingSystem, setPrintingSystem] = useState(true);
-
-    // --- Пользовательский ввод ---
-    const [userInput, setUserInput] = useState('');
-    const [isTyping, setIsTyping] = useState(false);
-
-    // --- Мигание карета ---
-    const [blinkOn, setBlinkOn] = useState(true);
+    const {
+        blinkOn,
+        isTyping,
+        printingSystem,
+        sysLineIndex,
+        sysTypedText,
+        systemLines,
+        userInput
+    } = useAppSelector(state => state.terminalSys);
+    const dispatch = useAppDispatch();
+    // const router = useRouter();
 
     useEffect(() => {
         if (!printingSystem) {
             // Таймер мигания карета (общий для «системы» и пользователя)
             const blinkTimer = setInterval(() => {
-                setBlinkOn((prev) => !prev);
+                dispatch(toggleBlink());
             }, blinkInterval);
 
             return () => clearInterval(blinkTimer);
@@ -49,50 +67,53 @@ const QuestionTerminal: React.FC<QuestionTerminalProps> = ({
     // ------------------------------
     useEffect(() => {
         if (sysLineIndex >= initialSystemLines.length) {
-            // Все строки системы напечатаны
-            setPrintingSystem(false);
+            dispatch(setIsSysTyping(false));
             return;
         }
 
         const currentFullLine = initialSystemLines[sysLineIndex];
         if (sysTypedText.length < currentFullLine.length) {
             const timer = setTimeout(() => {
-                setSysTypedText((prev) => prev + currentFullLine[prev.length]);
+                dispatch(setSysTypedText(sysTypedText + currentFullLine[sysTypedText.length]));
             }, typingSpeed);
             return () => clearTimeout(timer);
         } else {
             // Закончили печатать текущую системную строку
             // Сохраняем итоговую строку в systemLines
-            setSystemLines((prev) => [...prev, sysTypedText]);
+            dispatch(setSysLine([...systemLines, sysTypedText]));
             // Сбрасываем sysTypedText
-            setSysTypedText('');
-            setSysLineIndex((prev) => prev + 1);
+            dispatch(setSysTypedText(''));
+            dispatch(setSysLineIndex(sysLineIndex + 1));
         }
     }, [sysLineIndex, sysTypedText, typingSpeed]);
 
     // ------------------------------
     // 2. Логика ввода пользователя
     // ------------------------------
+
     useEffect(() => {
         let typingTimeout: NodeJS.Timeout | null = null;
 
-        const handleKeyDown = (e: KeyboardEvent) => {
-            // Пока система печатает — игнорируем пользовательский ввод
+        function handleKeyDown(e: KeyboardEvent) {
             if (printingSystem) return;
 
-            setIsTyping(true);
-            if (typingTimeout) clearTimeout(typingTimeout);
-
             typingTimeout = setTimeout(() => {
-                setIsTyping(false);
+                console.log("ASDASD");
+                dispatch(setIsUserTyping(false));
             }, blinkDelay);
 
+            dispatch(setIsUserTyping(true));
+            if (typingTimeout) clearTimeout(typingTimeout);
+
             if (e.key === 'Enter') {
-                setUserInput((prev) => prev + '\n');
+                const userVariant = +userInput.trim();
+                if (userVariant && sysOptions.vars.includes(userVariant)) {
+
+                }
             } else if (e.key === 'Backspace') {
-                setUserInput((prev) => prev.slice(0, -1));
+                dispatch(setUserInput(userInput.slice(0, -1)));
             } else if (e.key.length === 1) {
-                setUserInput((prev) => prev + e.key);
+                dispatch(setUserInput(userInput + e.key));
             }
         };
 
@@ -101,7 +122,7 @@ const QuestionTerminal: React.FC<QuestionTerminalProps> = ({
             window.removeEventListener('keydown', handleKeyDown);
             if (typingTimeout) clearTimeout(typingTimeout);
         };
-    }, [printingSystem, blinkDelay]);
+    }, [printingSystem, blinkDelay, userInput]);
 
     // ------------------------------
     // 3. Формируем общий текст для экрана
@@ -120,7 +141,7 @@ const QuestionTerminal: React.FC<QuestionTerminalProps> = ({
     let finalText = systemText;
     if (!printingSystem) {
         finalText += '\n';
-        const userCaret = isTyping ? '|' : (blinkOn ? '|' : '');
+        const userCaret = isTyping ? '|' : blinkOn ? '|' : '';
         finalText += userInput + userCaret;
     }
 
