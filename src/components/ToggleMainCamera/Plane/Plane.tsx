@@ -40,7 +40,7 @@ export default function Plane(props: {
     const [hovered, setHovered] = useState(false);
     const texture = useMemo(() => createGridTexture(), []);
     const squareRef = useRef<Mesh>(null);
-    const [cursorPos, setCursorPos] = useState<{ x: number; y: number; }>({ x: 0, y: 0 });
+    // const [cursorPos, setCursorPos] = useState<{ x: number; y: number; }>({ x: 0, y: 0 });
 
     // const { opacity } = useSpring({
     //     opacity: hovered ? 1 : 0,
@@ -89,8 +89,10 @@ export default function Plane(props: {
                             position: "fixed",
                             // top: cursorPos.y - 320,
                             // left: cursorPos.x - 130,
-                            top: cursorPos.y,
-                            left: cursorPos.x,
+                            // top: cursorPos.y,
+                            // left: cursorPos.x,
+                            top: 0,
+                            left: 0,
                             background: "rgba(0,0,0,0.8)",
                             color: "white",
                             textWrap: "nowrap",
