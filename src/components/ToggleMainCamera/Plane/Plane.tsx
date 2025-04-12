@@ -59,7 +59,7 @@ export default function Plane(props: {
 
     // TODO: podzkazka pri navidenii!!!
 
-    const handlePointerMove = (e: MouseEvent) => {
+    const handlePointerMove = () => {
         if (squareRef.current) {
             console.log();
 
