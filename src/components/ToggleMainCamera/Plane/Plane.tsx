@@ -1,4 +1,4 @@
-import { useSpring, animated } from "@react-spring/three";
+// import { useSpring, animated } from "@react-spring/three";
 import { Html } from "@react-three/drei";
 import { JSX, useMemo, useRef, useState } from "react";
 import { CanvasTexture, Mesh, RepeatWrapping } from "three";
@@ -42,10 +42,10 @@ export default function Plane(props: {
     const squareRef = useRef<Mesh>(null);
     const [cursorPos, setCursorPos] = useState<{ x: number; y: number; }>({ x: 0, y: 0 });
 
-    const { opacity } = useSpring({
-        opacity: hovered ? 1 : 0,
-        config: { tension: 120, friction: 14 }, // плавность
-    });
+    // const { opacity } = useSpring({
+    //     opacity: hovered ? 1 : 0,
+    //     config: { tension: 120, friction: 14 }, // плавность
+    // });
 
     function corsorOn() {
         setHovered(true);
@@ -68,7 +68,7 @@ export default function Plane(props: {
     };
 
     return (
-        <animated.mesh
+        <mesh
             ref={squareRef}
             onPointerOver={corsorOn}
             onPointerOut={cursorOut}
@@ -77,10 +77,10 @@ export default function Plane(props: {
         >
             <planeGeometry args={[props.width ? props.width : 10, props.height ? props.height : 17]} />
 
-            <animated.meshStandardMaterial
+            <meshStandardMaterial
                 map={texture}
                 transparent
-                opacity={opacity}
+                opacity={hovered ? 1 : 0}
             />
             <Html>
                 {
@@ -107,6 +107,6 @@ export default function Plane(props: {
                 }
 
             </Html>
-        </animated.mesh>
+        </mesh>
     )
 }
