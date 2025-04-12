@@ -1,0 +1,36 @@
+.container {
+    position: fixed;
+    inset: 0;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+
+    &.close {
+        display: none;
+    }
+}
+
+.frame {
+    & h1 {
+        font-weight: 500;
+        font-family: Orbitron, Orbitron Fallback;
+        font-size: 40px;
+        margin: 25px 0;
+        text-align: center;
+    }
+}
+
+.loader {
+    width: 700px;
+    height: 35px;
+    background: repeating-linear-gradient(-45deg, #ffffff 0 15px, #ffffff00 0 20px) left/200% 100%;
+    animation: l3 7s infinite linear;
+}
+
+@keyframes l3 {
+    100% {
+        background-position: right;
+    }
+}

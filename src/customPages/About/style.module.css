@@ -1,0 +1,29 @@
+.container {
+    max-width: 1200px;
+    margin: 100px auto 0;
+
+}
+
+.title {
+    font-family: Orbitron, Orbitron Fallback;
+    font-size: 40px;
+}
+
+.text {
+    font-size: 24px;
+}
+
+.container_firstBox {
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+.container_secondBox {
+    margin-top: 50px;
+    display: flex;
+    justify-content: flex-end;
+
+    & p {
+        max-width: 700px;
+    }
+}

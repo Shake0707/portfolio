@@ -4,7 +4,7 @@ import {
   Press_Start_2P
 } from "next/font/google";
 import "./globals.css";
-
+import { ReactNode } from "react";
 
 //? for terminal text
 const pressStart2P = Press_Start_2P({
@@ -22,7 +22,7 @@ const orbitron = Orbitron({
 const rajdhani = Rajdhani({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-})
+});
 
 export const metadata: Metadata = {
   title: "Shakh's Portfolio",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">

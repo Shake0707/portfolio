@@ -70,7 +70,7 @@ const StarsInSphere: React.FC<StarsInSphereProps> = ({
     innerRadius = 50,
     outerRadius = 100,
     drift = true,
-    speed = 0.5,
+    speed = 2,
 }) => {
     const pointsRef = useRef<THREE.Points>(null);
 

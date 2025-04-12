@@ -1,25 +1,35 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ITerminalSys {
-    // --- Система ---
+    allText: string;
+
+    // --- System init ---
     systemLines: string[];
     sysLineIndex: number;
     sysTypedText: string;
     printingSystem: boolean;
 
-    // --- Пользовательский ввод ---
+    // --- System --- 
+    sysFinalText: string;
+    sysIsTyping: boolean;
+
+    // --- user ---
     userInput: string;
     isTyping: boolean;
 
-    // --- Мигание карета ---
+    // --- Corret ---
     blinkOn: boolean;
 }
 
 const initialState: ITerminalSys = {
+    allText: "",
     printingSystem: true,
     sysLineIndex: 0,
     systemLines: [],
     sysTypedText: "",
+
+    sysFinalText: "",
+    sysIsTyping: false,
 
     userInput: "",
     isTyping: false,
@@ -45,7 +55,14 @@ export const termianlSysSlice = createSlice({
         },
 
         setUserInput: (state, action: PayloadAction<string>) => {
+            state.allText += action.payload;
+        },
+        setUserText: (state, action: PayloadAction<string>) => {
             state.userInput = action.payload;
+        },
+        delUserWord: (state) => {
+            state.allText = state.allText.slice(0, -1);
+            state.userInput = state.userInput.slice(0, -1);
         },
         setIsUserTyping: (state, action: PayloadAction<boolean>) => {
             state.isTyping = action.payload;
@@ -53,7 +70,26 @@ export const termianlSysSlice = createSlice({
 
         toggleBlink: (state) => {
             state.blinkOn = !state.blinkOn;
+        },
+
+        //! All txt
+        setAllText: (state, action: PayloadAction<string>) => {
+            state.allText = action.payload;
+        },
+        setBlinkOn: (state, action: PayloadAction<boolean>) => {
+            state.blinkOn = action.payload;
+        },
+        //! All txt
+
+        //! Single typing
+        toggleSingleSysIsTyping: (state) => {
+            state.sysIsTyping = !state.sysIsTyping;
+        },
+
+        setSysFinalText: (state, action: PayloadAction<string>) => {
+            state.sysFinalText = action.payload;
         }
+        //! Single typing
     }
 });
 
@@ -65,5 +101,11 @@ export const {
     setIsUserTyping,
     setSysLine,
     setSysLineIndex,
-    setUserInput
+    setUserInput,
+    toggleSingleSysIsTyping,
+    setSysFinalText,
+    setAllText,
+    delUserWord,
+    setBlinkOn,
+    setUserText
 } = termianlSysSlice.actions;
