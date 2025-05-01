@@ -1,70 +1,8 @@
-// "use client";
-
-// import { Html, OrbitControls, useProgress } from "@react-three/drei";
-// import { Canvas } from "@react-three/fiber";
-// import classes from "./style.module.css";
-// import BackgroundCircle from "@/components/BackgroundCircle/BackgroundCircle";
-// import LoadingComponent from "../Loading/Loading";
-// import { LavaModel } from "@/components/3D/Lava/Lava";
-
-// export default function About() {
-//     const { progress, total } = useProgress();
-
-//     return (
-//         <>
-//             <Canvas
-//                 id="about"
-//                 style={{
-//                     width: "100vw",
-//                     height: "100vh",
-//                 }}
-//             >
-//                 <Html
-//                     fullscreen
-//                     style={{
-//                         marginTop: 40,
-//                         userSelect: "none",
-//                         overflowY: "scroll"
-//                     }}
-//                 >
-//                     <div className={classes.container}>
-//                         <h1 className={classes.title}>About me</h1>
-//                         <div className={classes.container_firstBox}>
-//                             <p className={classes.text}>
-//                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut optio dolore sapiente, cupiditate cumque fuga in aspernatur omnis eum, odio voluptates, beatae perferendis expedita! Explicabo nisi saepe tenetur inventore dolorum?
-//                             </p>
-//                         </div>
-//                         <div className={classes.container_secondBox}>
-//                             <p className={classes.text}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium enim quibusdam veniam possimus, minima quis quidem. Neque, deserunt! Repellendus fugiat dolor quos provident voluptatum quam a doloremque quia nemo rem.</p>
-//                         </div>
-//                     </div>
-//                 </Html>
-
-//                 <LavaModel
-//                     scale={0.7}
-//                     position={[3, -1, 0]}
-//                     castShadow
-//                     receiveShadow
-//                 />
-
-//                 {/* <BackgroundCircle /> */}
-//                 {/* <OrbitControls  /> */}
-//                 {/* <ambientLight intensity={3} /> */}
-//                 {/* <gridHelper args={[30, 30]} /> */}
-//                 {/* <axesHelper args={[100]} /> */}
-//             </Canvas>
-//             <LoadingComponent isCanvasLoader={true} progress={progress} total={total} />
-//         </>
-//     )
-// }
-
-
 "use client";
 
 import { OrbitControls, useProgress } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import classes from "./style.module.css";
-// import BackgroundCircle from "@/components/BackgroundCircle/BackgroundCircle";
 import LoadingComponent from "../Loading/Loading";
 import { LavaModel } from "@/components/3D/Lava/Lava";
 import GridBackground from "@/components/GridBackground/GridBackground";
@@ -79,7 +17,7 @@ export default function About() {
                 {/* <h1 className={classes.title}>About me</h1> */}
                 <div className={classes.container_firstBox}>
                     <div className={classes.text}>
-                        <h1>Hi, i'm <span>Shakhriyor</span></h1>
+                        <h1>Hi, i&apos;m <span>Shakhriyor</span></h1>
                         <h1><TypeIt
                                 as="p"
                                 options={{

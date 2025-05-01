@@ -23,11 +23,11 @@ export class UI {
   }
 
   getMaxWidth(shape: string[][]): number {
-    let maxWidth = 0; 2
-    for (let row of shape) {
+    let maxWidth = 0;
+    for (const row of shape) {
       let rowWidth = 0;
 
-      for (let element of row) {
+      for (const element of row) {
         if (element) {
           rowWidth++;
         }

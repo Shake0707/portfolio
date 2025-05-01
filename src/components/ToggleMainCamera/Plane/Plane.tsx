@@ -1,5 +1,5 @@
 // import { useSpring, animated } from "@react-spring/three";
-import { useAppSelector } from "@/store/store";
+// import { useAppSelector } from "@/store/store";
 import { Html } from "@react-three/drei";
 import { JSX, useMemo, useRef, useState } from "react";
 import { CanvasTexture, Mesh, RepeatWrapping } from "three";
@@ -41,7 +41,7 @@ export default function Plane(props: {
     const [hovered, setHovered] = useState(false);
     const texture = useMemo(() => createGridTexture(), []);
     const squareRef = useRef<Mesh>(null);
-    const { isGame } = useAppSelector(state => state.terminalSys);
+    // const { isGame } = useAppSelector(state => state.terminalSys);
 
     function corsorOn() {
         setHovered(true);

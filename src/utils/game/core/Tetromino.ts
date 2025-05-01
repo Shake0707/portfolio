@@ -157,7 +157,7 @@ export class Tetromino {
     }
   }
 
-  draw(_ctx: CanvasRenderingContext2D) {
+  draw() {
     const { x, y } = this;
     for (let row = 0; row < this.shape.length; row++) {
       for (let col = 0; col < this.shape[row].length; col++) {

@@ -2,7 +2,6 @@ import { useAppSelector } from '@/store/store';
 import CurvedScreen from './CurvedScreen';
 import { useTerminalTyping } from '@/hooks/terminalTyping';
 import TetrisGame from '@/components/Tetris/TetrisGame';
-import { useEffect } from 'react';
 
 function QuestionTerminal() {
     const { finalText } = useTerminalTyping({});

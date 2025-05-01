@@ -1,9 +1,6 @@
 import { useTetrisTexture } from "@/utils/game/createCanvasGameTexture";
-import { Html } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
-import classes from "./style.module.css";
-import { Game } from "@/utils/game/core";
 import { ThreeEvent } from "@react-three/fiber";
 import { useAppDispatch } from "@/store/store";
 import { togglIsGame } from "@/store/sileces/terminalSys";
