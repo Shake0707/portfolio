@@ -67,7 +67,7 @@ export class Game {
 
   draw() {
     this.drawBoard();
-    this.currentTetromino?.draw(this.ctx);
+    this.currentTetromino?.draw();
     this.UI.draw(this.ctx);
   }
 
