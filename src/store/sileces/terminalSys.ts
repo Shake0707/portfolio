@@ -19,6 +19,8 @@ interface ITerminalSys {
 
     // --- Corret ---
     blinkOn: boolean;
+
+    isGame: boolean;
 }
 
 const initialState: ITerminalSys = {
@@ -34,7 +36,9 @@ const initialState: ITerminalSys = {
     userInput: "",
     isTyping: false,
 
-    blinkOn: true
+    blinkOn: true,
+
+    isGame: false
 }
 
 export const termianlSysSlice = createSlice({
@@ -88,8 +92,12 @@ export const termianlSysSlice = createSlice({
 
         setSysFinalText: (state, action: PayloadAction<string>) => {
             state.sysFinalText = action.payload;
-        }
+        },
         //! Single typing
+
+        togglIsGame: (state) => {
+            state.isGame = !state.isGame;
+        }
     }
 });
 
@@ -107,5 +115,6 @@ export const {
     setAllText,
     delUserWord,
     setBlinkOn,
-    setUserText
+    setUserText,
+    togglIsGame
 } = termianlSysSlice.actions;

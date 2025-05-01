@@ -1,4 +1,5 @@
 // import { useSpring, animated } from "@react-spring/three";
+import { useAppSelector } from "@/store/store";
 import { Html } from "@react-three/drei";
 import { JSX, useMemo, useRef, useState } from "react";
 import { CanvasTexture, Mesh, RepeatWrapping } from "three";
@@ -40,12 +41,7 @@ export default function Plane(props: {
     const [hovered, setHovered] = useState(false);
     const texture = useMemo(() => createGridTexture(), []);
     const squareRef = useRef<Mesh>(null);
-    // const [cursorPos, setCursorPos] = useState<{ x: number; y: number; }>({ x: 0, y: 0 });
-
-    // const { opacity } = useSpring({
-    //     opacity: hovered ? 1 : 0,
-    //     config: { tension: 120, friction: 14 }, // плавность
-    // });
+    const { isGame } = useAppSelector(state => state.terminalSys);
 
     function corsorOn() {
         setHovered(true);
@@ -64,51 +60,51 @@ export default function Plane(props: {
             console.log();
 
         }
-        // setCursorPos({ x: e.x, y: e.y });
     };
 
     return (
-        <mesh
-            ref={squareRef}
-            onPointerOver={corsorOn}
-            onPointerOut={cursorOut}
-            onPointerMove={handlePointerMove}
-            {...props.props}
-        >
-            <planeGeometry args={[props.width ? props.width : 10, props.height ? props.height : 17]} />
+        <>
+            {/* {
+                isGame ? "" : */}
+                    <mesh
+                        ref={squareRef}
+                        onPointerOver={corsorOn}
+                        onPointerOut={cursorOut}
+                        onPointerMove={handlePointerMove}
+                        {...props.props}
+                    >
+                        <planeGeometry args={[props.width ? props.width : 10, props.height ? props.height : 17]} />
 
-            <meshStandardMaterial
-                map={texture}
-                transparent
-                opacity={hovered ? 1 : 0}
-            />
-            <Html>
-                {
-                    hovered ?
-                        <div style={{
-                            position: "fixed",
-                            // top: cursorPos.y - 320,
-                            // left: cursorPos.x - 130,
-                            // top: cursorPos.y,
-                            // left: cursorPos.x,
-                            top: 0,
-                            left: 0,
-                            background: "rgba(0,0,0,0.8)",
-                            color: "white",
-                            textWrap: "nowrap",
-                            padding: "4px 8px",
-                            borderRadius: "4px",
-                            pointerEvents: "none",
-                            fontSize: "17px",
-                            transition: "opacity 0.2s ease",
-                            zIndex: 1000,
-                        }}>
-                            {props.message}
-                        </div>
-                        : ""
-                }
+                        <meshStandardMaterial
+                            map={texture}
+                            transparent
+                            opacity={hovered ? 1 : 0}
+                        />
+                        <Html>
+                            {
+                                hovered ?
+                                    <div style={{
+                                        position: "fixed",
+                                        top: 0,
+                                        left: 0,
+                                        color: "white",
+                                        textWrap: "nowrap",
+                                        padding: "4px 8px",
+                                        borderRadius: "4px",
+                                        pointerEvents: "none",
+                                        fontSize: "17px",
+                                        backgroundColor: "transparent",
+                                        transition: "opacity 0.2s ease",
+                                        zIndex: 1000,
+                                    }}>
+                                        {props.message}
+                                    </div>
+                                    : ""
+                            }
 
-            </Html>
-        </mesh>
+                        </Html>
+                    </mesh >
+            {/* } */}
+        </>
     )
 }

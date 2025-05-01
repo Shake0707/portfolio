@@ -1,7 +1,7 @@
 .container {
     max-width: 1200px;
-    margin: 100px auto 0;
-
+    margin: 0 auto;
+    padding-top: 70px;
 }
 
 .title {
@@ -10,20 +10,80 @@
 }
 
 .text {
-    font-size: 24px;
+    padding-top: 20px;
+    width: 100%;
 }
 
 .container_firstBox {
-    max-width: 500px;
-    margin-top: 20px;
+    display: flex;
+
+    & .text {
+        max-width: 600px;
+        padding-top: 200px;
+
+        & h1 {
+            font-family: Orbitron, Orbitron;
+            font-size: 42px;
+            display: flex;
+            flex-wrap: nowrap;
+
+            & span {
+                margin-left: 10px;
+                color: red;
+            }
+
+            & p>span {
+                color: white;
+                margin: 0;
+            }
+        }
+
+        & .supTitle {
+            margin-top: 50px;
+            font-size: 40px;
+            font-weight: 600;
+
+            & span {
+                color: red;
+                font-weight: 700;
+
+                & span {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    & .btn {
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(5px);
+        padding: 20px 30px;
+        border: none;
+        outline: none;
+        color: white;
+        cursor: pointer;
+        font-size: 22px;
+        font-family: Rajdhani, Rajdhani Fallback;
+        font-weight: 700;
+        text-transform: uppercase;
+
+    }
+
+    & canvas {
+        width: 50%;
+        height: 85vh;
+        cursor: grab;
+        background-color: transparent;
+    }
 }
 
 .container_secondBox {
-    margin-top: 50px;
+    margin-top: 300px;
     display: flex;
     justify-content: flex-end;
 
     & p {
-        max-width: 700px;
+        max-width: 500px;
     }
 }

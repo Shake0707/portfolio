@@ -5,6 +5,7 @@ export class Terminal {
     user: string | null = null;
     redirectUrl: string | null = null;
     eggs: string | null = null;
+    game: string | null = null;
 
     private afterAnswer() {
         if (this.user === "1" || this.user === "2" || this.user === "3") {
@@ -14,14 +15,15 @@ export class Terminal {
                     this.redirectUrl = "/" + ETerminalUrls.about.toLowerCase();
                     break;
                 case "2":
-                    this.redirectUrl = "/" + ETerminalUrls.skills.toLowerCase();
+                    this.game = ETerminalUrls.tetris.toLocaleLowerCase();
+                    this.system = ETerminalTextSysResponse.ifGame;
                     break;
                 case "3":
                     this.redirectUrl = "/" + ETerminalUrls.contacts.toLowerCase();
                     break;
             }
         } else if (this.user === "Optimus Prime".trim()) {
-            
+            this.eggs = this.user;
         } else {
             this.system = ETerminalTextSysResponse.ifUncorrect;
         }

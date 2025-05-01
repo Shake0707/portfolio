@@ -20,7 +20,7 @@ export default function LoadingComponent({ isCanvasLoader, progress, total }: IP
         } else {
             setIsClose(true);
         }
-    }, [progress]);
+    }, [progress, isCanvasLoader, total]);
 
     return (
         <div className={isClose ? classes.container + " " + classes.close : classes.container}>

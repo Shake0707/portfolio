@@ -1,12 +1,14 @@
 .container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     padding: 10px 0;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 10;
-    border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+    backdrop-filter: blur(5px);
+    /* box-shadow: 0 10px 15px -3px rgba(255, 0, 0, 0.4), 0 4px 6px -4px red; */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6); 
 }
 
 .frame {
@@ -24,6 +26,7 @@
         padding: 10px 20px;
         transition: all .2s ease-in;
         color: white;
+        font-family: Orbitron, Orbitron;
         font-weight: 600;
 
         &.active {
@@ -32,6 +35,6 @@
 
         &:hover {
             color: red;
-        }        
+        }
     }
 }

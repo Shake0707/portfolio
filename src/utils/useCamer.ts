@@ -1,29 +1,46 @@
 import { useFrame, useThree } from "@react-three/fiber"
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Vector3, Vector3Like } from "three";
 
-export function useCamer(props: { chapel: number, speed?: number }) {
+interface IProps {
+    speed?: number;
+    isStartAnimProp?: boolean | null;
+    setEnabledControls?: (enabled: boolean) => void;
+    setIsStartAnimProp?: Dispatch<SetStateAction<boolean>>;
+}
+
+export function useCamer({
+    isStartAnimProp = null,
+    setIsStartAnimProp = () => { },
+    setEnabledControls,
+    speed
+}: IProps) {
     const { camera } = useThree();
-    const [isStartedChangePos, setIsStartedChangePos] = useState<boolean>(false);
+    const [isStartAnim, setStartAnim] = useState<boolean>(false);
+    const [status, setStatus] = useState<"idle" | "progress" | "complated">("idle");
     const [cameraPos, setCamerPos] = useState<Vector3Like>(new Vector3(0, 0, 0));
 
     useFrame(() => {
-        if (isStartedChangePos) {
-            camera.position.lerp(cameraPos, props.speed ? props.speed : 0.02);
-
+        if (isStartAnimProp || isStartAnim) {
+            camera.position.lerp(cameraPos, speed ? speed : 0.02);
             camera.updateProjectionMatrix();
 
-            if (camera.position.x >= props.chapel) {
-                setIsStartedChangePos(false);
-                setCamerPos(new Vector3(0, 0, 0));
+            if (camera.position.x >= (cameraPos.x - 1)) {
+                setIsStartAnimProp(false);
+                setStartAnim(false);
+                setStatus("complated");
+                if (setEnabledControls) {
+                    setEnabledControls(true);
+                }
             }
         }
     });
 
     function startSmoothChangePos(pos: Vector3Like) {
         setCamerPos(pos);
-        setIsStartedChangePos(true);
+        setStartAnim(true);
+        setStatus("progress");
     }
 
-    return { startSmoothChangePos };
+    return { startSmoothChangePos, status };
 }

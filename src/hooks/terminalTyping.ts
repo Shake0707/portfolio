@@ -1,7 +1,9 @@
+/* eslint-disable */
+
 import { Terminal } from "@/services/terminal/terminalText.service";
-import { delUserWord, setAllText, setBlinkOn, setIsSysTyping, setIsUserTyping, setSysFinalText, setSysLine, setSysLineIndex, setSysTypedText, setUserInput, setUserText, toggleBlink, toggleSingleSysIsTyping } from "@/store/sileces/terminalSys";
+import { delUserWord, setAllText, setBlinkOn, setIsSysTyping, setIsUserTyping, setSysFinalText, setSysLine, setSysLineIndex, setSysTypedText, setUserInput, setUserText, toggleBlink, toggleSingleSysIsTyping, togglIsGame } from "@/store/sileces/terminalSys";
 import { store, useAppDispatch, useAppSelector } from "@/store/store";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCamer } from "../utils/useCamer";
 import { Vector3 } from "three";
 import { ETerminalTextSysResponse, ETerminalUrls } from "@/types/terminal.type";
@@ -16,7 +18,7 @@ interface IProps {
 const initialSystemLines = [
     "Hi, do you want to know about me?",
     `1. ${ETerminalUrls.about} me`,
-    `2. My ${ETerminalUrls.skills}`,
+    `2. My ${ETerminalUrls.tetris}`,
     `3. ${ETerminalUrls.contacts}`,
     ""
 ];
@@ -41,9 +43,8 @@ export function useTerminalTyping({
         userInput
     } = useAppSelector(state => state.terminalSys);
     const dispatch = useAppDispatch();
-    const { startSmoothChangePos } = useCamer({ chapel: 37 });
+    const { startSmoothChangePos, status: cameraStatus } = useCamer({});
     const router = useRouter();
-
     const TerminalText = new Terminal();
 
     //! SYS INIT LINES
@@ -99,17 +100,25 @@ export function useTerminalTyping({
                 }
             }, typingSpeed);
 
-            // TODO: LOGICK FOR NEXT page
+            //! LOGICK FOR NEXT page
             if (sysFinalText === ETerminalTextSysResponse.ifCorrect) {
                 setTimeout(() => {
-                    startSmoothChangePos(new Vector3(40, 30, 20));
+                    startSmoothChangePos(new Vector3(30, 20, 10));
+                    document.getElementById("overlayForChangeZoom")!.style.display = "block";
+
                     setTimeout(() => {
                         router.push(redirectUrl);
                         redirectUrl = "";
                     }, 1000);
                 }, 1000);
+            } else if (sysFinalText === ETerminalTextSysResponse.ifGame) {
+                // startSmoothChangePos(new Vector3(10.5, 7, 4));
+                
+                setTimeout(() => {
+                    dispatch(togglIsGame());
+                }, 1700);
             }
-            // TODO: LOGICK FOR NEXT page
+            //! LOGICK FOR NEXT page
 
             dispatch(setSysFinalText(""));
 
