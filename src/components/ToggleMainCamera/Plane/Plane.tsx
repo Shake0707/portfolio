@@ -1,5 +1,5 @@
 import { Html } from "@react-three/drei";
-import { ThreeEvent } from "@react-three/fiber";
+// import { ThreeEvent } from "@react-three/fiber";
 import { JSX, useMemo, useRef, useState } from "react";
 import { CanvasTexture, Mesh, RepeatWrapping } from "three";
 
@@ -56,7 +56,9 @@ export default function Plane(props: {
 
     // TODO: podzkazka pri navidenii!!!
 
-    const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
+    const handlePointerMove = (
+        // e: ThreeEvent<PointerEvent>
+    ) => {
         if (squareRef.current) {
             // console.log(e.x);
 
