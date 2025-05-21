@@ -25,9 +25,10 @@ export default function CameraChange({ isZoomOut,
 
     useFrame(() => {
         if (isStartAnim) {
+            console.log(1);
             if (!isZoomOut) {
-                console.log(1);
-                
+                console.log(2);
+
                 camera.position.lerp(new Vector3(10.5, 7, 4), 0.05);
                 camera.updateProjectionMatrix();
 
