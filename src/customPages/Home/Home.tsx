@@ -42,8 +42,8 @@ export default function Home({ deviceType }: IProps) {
     if (deviceType === "mobile") {
         return (
             <div className={classes.container}>
-                <h1>Bu sayt sizni qurulmangiz uchun emas 😊</h1>
-                <h3>Iltimos kompyuter orqali kiring</h3>
+                <h1>This site not for you device 😊</h1>
+                <h3>Place enter an desktop</h3>
             </div>
         )
     }

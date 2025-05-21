@@ -6,7 +6,5 @@ export default async function HomePage() {
   const { device } = userAgent({ headers: await headers() });
   const deviceType = device?.type === "mobile" ? "mobile" : "desktop";
 
-  console.log(deviceType);
-
   return <Home deviceType={deviceType} />;
 }
