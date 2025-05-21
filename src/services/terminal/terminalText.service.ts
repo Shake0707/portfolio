@@ -8,9 +8,11 @@ export class Terminal {
     game: string | null = null;
 
     private afterAnswer() {
-        if (this.user === "1" || this.user === "2" || this.user === "3") {
+        if (!this.user) return;
+        const userText = this.user.trim().toLocaleLowerCase();
+        if (userText === "1" || userText === "2" || userText === "3") {
             this.system = ETerminalTextSysResponse.ifCorrect;
-            switch (this.user) {
+            switch (userText) {
                 case "1":
                     this.redirectUrl = "/" + ETerminalUrls.about.toLowerCase();
                     break;
@@ -22,8 +24,10 @@ export class Terminal {
                     this.redirectUrl = "/" + ETerminalUrls.contacts.toLowerCase();
                     break;
             }
-        } else if (this.user === "Optimus Prime".trim()) {
-            this.eggs = this.user;
+        } else if (userText === "front end") {
+            this.system = "It's hell mf";
+        } else if (userText === "16" || userText === "birthday") {
+            this.system = "On 16-march my birthday)";
         } else {
             this.system = ETerminalTextSysResponse.ifUncorrect;
         }

@@ -14,12 +14,18 @@ import LoadingComponent from "../Loading/Loading";
 import Plane from "@/components/ToggleMainCamera/Plane/Plane";
 import { useState } from "react";
 import CameraChange from "@/components/Camera/CamerChange/CameraChange";
+import classes from "./style.module.css";
 
-export default function Home() {
+interface IProps {
+    deviceType: "mobile" | "desktop";
+}
+
+export default function Home({ deviceType }: IProps) {
     const { progress, total } = useProgress();
     const [enabledControls, setEnabledControls] = useState<boolean>(false);
-    const [isZoomOut, setIsZoomOut] = useState<boolean>(false);
-    const [isStartAnim, setIsStartAnim] = useState(false);
+    const [isZoomOut, setIsZoomOut] = useState<boolean>(true);
+    const [isStartAnim, setIsStartAnim] = useState(true);
+    const [isShowZoomChanger, setIsShowZoomChanger] = useState<boolean>(false);
 
     function zoomOut() {
         setIsStartAnim(true);
@@ -31,6 +37,15 @@ export default function Home() {
         setIsStartAnim(true);
         setEnabledControls(false);
         setIsZoomOut(false);
+    }
+
+    if (deviceType === "mobile") {
+        return (
+            <div className={classes.container}>
+                <h1>Bu sayt sizni qurulmangiz uchun emas 😊</h1>
+                <h3>Iltimos kompyuter orqali kiring</h3>
+            </div>
+        )
     }
 
     return (
@@ -45,7 +60,8 @@ export default function Home() {
                     near: 0.1,
                     far: 1000,
                     zoom: 1,
-                    position: [10.5, 7, 4],
+                    // position: [10.5, 7, 4],
+                    position: [30, 20, 10],
                 }}
             >
                 <ambientLight intensity={3} />
@@ -55,6 +71,9 @@ export default function Home() {
                     setEnableControls={setEnabledControls}
                     isStartAnim={isStartAnim}
                     setIsStartAnim={setIsStartAnim}
+                    startProgress={progress}
+                    setIsZoomOut={setIsZoomOut}
+                    setIsShowZoomChanger={setIsShowZoomChanger}
                 />
                 <OrbitControls
                     maxDistance={45}
@@ -74,6 +93,7 @@ export default function Home() {
                                     onClick: zoomOut
                                 }}
                                 message="Zoom out"
+                                isShow={isShowZoomChanger}
                             />
                     }
 
@@ -88,6 +108,7 @@ export default function Home() {
                                 width={16}
                                 height={13}
                                 message="Zoom in"
+                                isShow={isShowZoomChanger}
                             /> : ""
                     }
 
@@ -106,8 +127,9 @@ export default function Home() {
                                 props={{
                                     position: [0, 6, -11],
                                     rotation: [0, Math.PI / 2, 0],
-                                    onClick: zoomOut
+                                    onClick: zoomOut,
                                 }}
+                                isShow={isShowZoomChanger}
                                 message="Zoom out"
                             />
                     }

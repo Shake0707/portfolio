@@ -1,6 +1,5 @@
-// import { useSpring, animated } from "@react-spring/three";
-// import { useAppSelector } from "@/store/store";
 import { Html } from "@react-three/drei";
+import { ThreeEvent } from "@react-three/fiber";
 import { JSX, useMemo, useRef, useState } from "react";
 import { CanvasTexture, Mesh, RepeatWrapping } from "three";
 
@@ -10,7 +9,7 @@ const createGridTexture = () => {
     canvas.width = canvas.height = size;
     const ctx = canvas.getContext("2d")!;
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0)";
+    ctx.fillStyle = "rgba(0,0,0,0)";
     ctx.fillRect(0, 0, size, size);
 
     ctx.strokeStyle = "white";
@@ -37,9 +36,11 @@ export default function Plane(props: {
     message: string;
     width?: number;
     height?: number;
+    isShow: boolean;
 }) {
     const [hovered, setHovered] = useState(false);
     const texture = useMemo(() => createGridTexture(), []);
+    // const [cursorPos, setCursorPos] = useState<{ x: number; y: number; }>({ x: 0, y: 0 });
     const squareRef = useRef<Mesh>(null);
     // const { isGame } = useAppSelector(state => state.terminalSys);
 
@@ -55,17 +56,18 @@ export default function Plane(props: {
 
     // TODO: podzkazka pri navidenii!!!
 
-    const handlePointerMove = () => {
+    const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
         if (squareRef.current) {
-            console.log();
+            // console.log(e.x);
 
+            // setCursorPos({ x: e.x, y: e.y });
         }
     };
 
     return (
         <>
-            {/* {
-                isGame ? "" : */}
+            {
+                props.isShow ?
                     <mesh
                         ref={squareRef}
                         onPointerOver={corsorOn}
@@ -84,27 +86,28 @@ export default function Plane(props: {
                             {
                                 hovered ?
                                     <div style={{
-                                        position: "fixed",
+                                        position: "absolute",
+                                        // inset: 0,
                                         top: 0,
                                         left: 0,
+                                        // top: cursorPos.y,
+                                        // left: cursorPos.x,
                                         color: "white",
                                         textWrap: "nowrap",
                                         padding: "4px 8px",
                                         borderRadius: "4px",
                                         pointerEvents: "none",
                                         fontSize: "17px",
-                                        backgroundColor: "transparent",
+                                        backgroundColor: "#000",
                                         transition: "opacity 0.2s ease",
                                         zIndex: 1000,
                                     }}>
                                         {props.message}
-                                    </div>
-                                    : ""
+                                    </div> : ""
                             }
-
                         </Html>
-                    </mesh >
-            {/* } */}
+                    </mesh > : ""
+            }
         </>
     )
 }

@@ -1,0 +1,11 @@
+.frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: rgb(117 117 117);
+
+    &.active {
+        color: white;
+    }
+}

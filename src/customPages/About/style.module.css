@@ -18,7 +18,7 @@
     display: flex;
 
     & .text {
-        max-width: 600px;
+        max-width: 650px;
         padding-top: 200px;
 
         & h1 {
@@ -37,29 +37,12 @@
                 margin: 0;
             }
         }
-
-        & .supTitle {
-            margin-top: 50px;
-            font-size: 40px;
-            font-weight: 600;
-
-            & span {
-                color: red;
-                font-weight: 700;
-
-                & span {
-                    color: white;
-                }
-            }
-        }
     }
 
     & .btn {
-        margin-top: 20px;
-        background-color: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(5px);
-        padding: 20px 30px;
-        border: none;
+        margin-top: 50px;
+        background-color: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(2px);
         outline: none;
         color: white;
         cursor: pointer;
@@ -67,7 +50,13 @@
         font-family: Rajdhani, Rajdhani Fallback;
         font-weight: 700;
         text-transform: uppercase;
+        border: 1px solid white;
 
+        & a {
+            display: block;
+            padding: 10px 30px;
+            background-color: transparent;
+        }
     }
 
     & canvas {
@@ -83,7 +72,13 @@
     display: flex;
     justify-content: flex-end;
 
+    & h1 {
+        
+    }
+
     & p {
         max-width: 500px;
+        font-size: 22px;
+        font-weight: 500;
     }
 }

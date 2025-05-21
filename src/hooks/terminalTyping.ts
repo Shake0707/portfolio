@@ -3,7 +3,7 @@
 import { Terminal } from "@/services/terminal/terminalText.service";
 import { delUserWord, setAllText, setBlinkOn, setIsSysTyping, setIsUserTyping, setSysFinalText, setSysLine, setSysLineIndex, setSysTypedText, setUserInput, setUserText, toggleBlink, toggleSingleSysIsTyping, togglIsGame } from "@/store/sileces/terminalSys";
 import { store, useAppDispatch, useAppSelector } from "@/store/store";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useCamer } from "../utils/useCamer";
 import { Vector3 } from "three";
 import { ETerminalTextSysResponse, ETerminalUrls } from "@/types/terminal.type";
@@ -43,7 +43,7 @@ export function useTerminalTyping({
         userInput
     } = useAppSelector(state => state.terminalSys);
     const dispatch = useAppDispatch();
-    const { startSmoothChangePos, status: cameraStatus } = useCamer({});
+    const { startSmoothChangePos } = useCamer();
     const router = useRouter();
     const TerminalText = new Terminal();
 
@@ -113,7 +113,7 @@ export function useTerminalTyping({
                 }, 1000);
             } else if (sysFinalText === ETerminalTextSysResponse.ifGame) {
                 // startSmoothChangePos(new Vector3(10.5, 7, 4));
-                
+
                 setTimeout(() => {
                     dispatch(togglIsGame());
                 }, 1700);

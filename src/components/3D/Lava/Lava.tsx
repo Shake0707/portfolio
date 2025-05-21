@@ -7,6 +7,7 @@ export function LavaModel(props: JSX.IntrinsicElements['group']) {
     const group = useRef<THREE.Group>(null);
     const { camera } = useThree();
     const { scene, animations } = useGLTF('/models/lava_lamp_v1.glb');
+    // const { scene, animations } = useGLTF('/models/lava_lamp.glb');
     const { actions } = useAnimations(animations, group);
 
     useEffect(() => {

@@ -41,8 +41,8 @@ export const ParticlesBackground = () => {
 
     useFrame((_state, delta) => {
         if (ref.current) {
-            ref.current.rotation.x -= delta / 20;
-            ref.current.rotation.y -= delta / 25;
+            ref.current.rotation.x -= delta / 30;
+            ref.current.rotation.y -= delta / 10;
         }
     });
 

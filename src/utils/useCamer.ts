@@ -1,46 +1,27 @@
-import { useFrame, useThree } from "@react-three/fiber"
-import { Dispatch, SetStateAction, useState } from "react";
-import { Vector3, Vector3Like } from "three";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useState } from "react";
+import { Vector3 } from "three";
 
-interface IProps {
-    speed?: number;
-    isStartAnimProp?: boolean | null;
-    setEnabledControls?: (enabled: boolean) => void;
-    setIsStartAnimProp?: Dispatch<SetStateAction<boolean>>;
-}
-
-export function useCamer({
-    isStartAnimProp = null,
-    setIsStartAnimProp = () => { },
-    setEnabledControls,
-    speed
-}: IProps) {
+export function useCamer() {
     const { camera } = useThree();
-    const [isStartAnim, setStartAnim] = useState<boolean>(false);
-    const [status, setStatus] = useState<"idle" | "progress" | "complated">("idle");
-    const [cameraPos, setCamerPos] = useState<Vector3Like>(new Vector3(0, 0, 0));
+    const [isAnimating, setAnimating] = useState(false);
+    const [targetPos, setTargetPos] = useState<Vector3 | null>(null);
 
     useFrame(() => {
-        if (isStartAnimProp || isStartAnim) {
-            camera.position.lerp(cameraPos, speed ? speed : 0.02);
-            camera.updateProjectionMatrix();
+        if (!isAnimating || !targetPos) return;
 
-            if (camera.position.x >= (cameraPos.x - 1)) {
-                setIsStartAnimProp(false);
-                setStartAnim(false);
-                setStatus("complated");
-                if (setEnabledControls) {
-                    setEnabledControls(true);
-                }
-            }
+        camera.position.lerp(targetPos, 0.02);
+        camera.updateProjectionMatrix();
+
+        if (camera.position.distanceTo(targetPos) < 0.1) {
+            setAnimating(false);
         }
     });
 
-    function startSmoothChangePos(pos: Vector3Like) {
-        setCamerPos(pos);
-        setStartAnim(true);
-        setStatus("progress");
+    function startSmoothChangePos(pos: Vector3) {
+        setTargetPos(pos);
+        setAnimating(true);
     }
 
-    return { startSmoothChangePos, status };
+    return { startSmoothChangePos };
 }
