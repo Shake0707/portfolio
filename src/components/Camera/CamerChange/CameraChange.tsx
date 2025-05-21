@@ -22,6 +22,7 @@ export default function CameraChange({ isZoomOut,
 }: IProps) {
     const { camera } = useThree();
     const [used, setUsed] = useState<boolean>(false);
+    console.log("ASDASDASD");
 
     useFrame(() => {
         if (isStartAnim) {
@@ -35,16 +36,15 @@ export default function CameraChange({ isZoomOut,
             } else {
                 if (startProgress === 100 && used === false) {
                     // setTimeout(() => {
-                    console.log("ASDASDASD");
-                        camera.position.lerp(new Vector3(10.5, 7, 4), 0.05);
-                        camera.updateProjectionMatrix();
+                    camera.position.lerp(new Vector3(10.5, 7, 4), 0.05);
+                    camera.updateProjectionMatrix();
 
-                        if (camera.position.distanceTo(new Vector3(10.5, 7, 4)) < 0.8) {
-                            setIsZoomOut(false);
-                            setUsed(true);
-                            setIsStartAnim(false);
-                            setIsShowZoomChanger(true);
-                        }
+                    if (camera.position.distanceTo(new Vector3(10.5, 7, 4)) < 0.8) {
+                        setIsZoomOut(false);
+                        setUsed(true);
+                        setIsStartAnim(false);
+                        setIsShowZoomChanger(true);
+                    }
                     // }, 500);
                 } else {
                     camera.position.lerp(new Vector3(30, 20, 10), 0.05);
