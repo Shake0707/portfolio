@@ -23,8 +23,8 @@ export default function CameraChange({ isZoomOut,
     const { camera } = useThree();
     const [used, setUsed] = useState<boolean>(false);
 
-    console.log(startProgress);
-    console.log(used);
+    console.log("IS START ANIM: ", isStartAnim);
+    console.log("Used: ", used);
 
     useFrame(() => {
         if (isStartAnim) {
