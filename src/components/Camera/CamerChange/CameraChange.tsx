@@ -46,7 +46,7 @@ export default function CameraChange({ isZoomOut,
                         setIsStartAnim(false);
                         setIsShowZoomChanger(true);
                     }
-                } else {
+                } else if (startProgress === 100 && used) {
                     camera.position.lerp(new Vector3(30, 20, 10), 0.05);
                     camera.updateProjectionMatrix();
 
